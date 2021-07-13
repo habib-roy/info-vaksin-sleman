@@ -19,6 +19,11 @@ const getJadwalFaskes = async (id) => {
         result.data.datafaskes[0].lat = dataLokasi.lat
         result.data.datafaskes[0].lon = dataLokasi.lon
       }
+      result.data.result.map((jadwal,key) => {
+        delete jadwal.id_jadwal_faskes
+        delete jadwal.id_data_faskes
+        delete jadwal.faskes
+      })
       
       redisClientSetex('faskes-id-'+id, process.env.REDIS_EXPIRE, JSON.stringify(result.data));
 
