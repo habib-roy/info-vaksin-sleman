@@ -1,3 +1,5 @@
+![Vercel Deployment](https://therealsujitk-vercel-badge.vercel.app/?app=info-vaksin-sleman) ![Language](https://img.shields.io/github/languages/top/habib-roy/info-vaksin-sleman) ![Issues](https://img.shields.io/github/issues/habib-roy/info-vaksin-sleman) ![PRs](https://img.shields.io/github/issues-pr/habib-roy/info-vaksin-sleman) ![License](https://img.shields.io/github/license/habib-roy/info-vaksin-sleman)
+
 ## Info Vaksin Sleman
 Informasi kegiatan vaksinasi dari fasilitas kesehatan di daerah Sleman
 
@@ -27,3 +29,7 @@ Informasi kegiatan vaksinasi dari fasilitas kesehatan di daerah Sleman
 - Daftar jadwal dan kuota vaksin semua faskes
     
     ```/api/v1/jadwal```
+
+### Kontributor
+
+![Contributors Stats](https://contrib.rocks/image?repo=habib-roy/info-vaksin-sleman)
