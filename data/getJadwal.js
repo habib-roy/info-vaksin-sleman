@@ -8,15 +8,10 @@ const getJadwal = async () => {
   const faskes = await getFaskes();
   var jadwalSemuaFaskes = []
   for (const f of faskes) {
-    const { result, datafaskes } = await getJadwalFaskes(f.id)
-    jadwalSemuaFaskes.push({
-      nama : datafaskes[0].faskes,
-      wilayah : datafaskes[0].wilayah,
-      jadwal : result
-    })
+    jadwalSemuaFaskes.push(getJadwalFaskes(f.id))
   }
 
-  return jadwalSemuaFaskes
+  return Promise.all(jadwalSemuaFaskes)
 };
 
 export { getJadwal };
