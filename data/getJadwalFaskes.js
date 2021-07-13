@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { redisClientGet, redisClientSetex } from './redisClient';
+import { getLokasi } from './getLokasi';
 
 const JADWAL_FASKES = `https://daftarvaksin.slemankab.go.id/_adm/api/data_jadwal?nik=&umur=&id_faskes=`;
 
@@ -11,8 +12,14 @@ const getJadwalFaskes = async (id) => {
   
       return JSON.parse(dataJadwalFaskes)
     }else{
-      const result = await axios.get(JADWAL_FASKES+id);
-
+      var result = await axios.get(JADWAL_FASKES+id);
+      const lokasi = getLokasi()
+      const dataLokasi = lokasi.find(x => x.id == id)
+      if (dataLokasi) {
+        result.data.datafaskes[0].lat = dataLokasi.lat
+        result.data.datafaskes[0].lon = dataLokasi.lon
+      }
+      
       redisClientSetex('faskes-id-'+id, process.env.REDIS_EXPIRE, JSON.stringify(result.data));
 
       console.log("Jadwal Tiap Faskes successfully retrieved from the API");

@@ -16,7 +16,7 @@ const getFaskes = async () => {
     var resultData = result.data.result
 
     resultData.forEach((v, k) => {
-      const dataLokasi = lokasi.find(x => x.id === v.id)
+      const dataLokasi = lokasi.find(x => x.id == v.id)
       if (dataLokasi) {
         resultData[k]['lat'] = dataLokasi.lat
         resultData[k]['lon'] = dataLokasi.lon

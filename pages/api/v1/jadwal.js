@@ -7,6 +7,8 @@ export default async (req, res) => {
     jadwalSemuaFaskes.push({
       nama : jadwal.datafaskes[0].faskes,
       wilayah : jadwal.datafaskes[0].wilayah,
+      lat : jadwal.datafaskes[0].lat,
+      lon : jadwal.datafaskes[0].lon,
       jadwal : jadwal.result
     })
   })

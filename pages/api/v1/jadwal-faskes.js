@@ -1,11 +1,8 @@
 import { getJadwalFaskes } from '../../../data/getJadwalFaskes';
-import { getLokasi } from '../../../data/getLokasi';
 
 export default async (req, res) => {
   if(req.query.id_faskes){
     const { result, datafaskes } = await getJadwalFaskes(req.query.id_faskes)
-    const lokasi = getLokasi()
-    const dataLokasi = lokasi.find(x => x.id === parseInt(req.query.id_faskes))
     if (datafaskes[0]) {
       res
         .status(200)
@@ -16,8 +13,8 @@ export default async (req, res) => {
             faskes: {
               nama : datafaskes[0].faskes,
               wilayah : datafaskes[0].wilayah,
-              lat: dataLokasi?.lat,
-              lon: dataLokasi?.lon,
+              lat: datafaskes[0].lat,
+              lon: datafaskes[0].lon,
             }
           },
           error: null
