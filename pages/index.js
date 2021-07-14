@@ -1,7 +1,11 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
+import Footer from '../componen/layout/footer'
+import TimelineView from '../componen/TimelineView'
+import axios from 'axios'
+import { getJadwal } from '../data/getJadwal'
 
-export default function Home() {
+const LandingPage = ({data, tanggal}) => {
   return (
     <div className={styles.container}>
       <Head>
@@ -12,17 +16,32 @@ export default function Home() {
       <main className={styles.main}>
         <h1 className={styles.title}>Info Vaksin Sleman</h1>
       </main>
+      <TimelineView data={data} tanggal={tanggal}/>
 
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
+      <Footer/>
     </div>
   )
 }
+
+export async function getStaticProps() {
+  const returnJadwal = await getJadwal()
+  let jadwal = []
+  let tanggal = []
+  returnJadwal.map((faskes, k)=>{
+    if (faskes.result.length > 0) {
+      jadwal.push(faskes)
+      faskes.result.map((jadwal,key) => {
+        if (tanggal.indexOf(jadwal.tanggal_vaksin)==-1) tanggal.push(jadwal.tanggal_vaksin)
+      })
+    }
+  })
+  tanggal.sort(function(a,b){ return new Date(a) - new Date(b) });
+  return {
+    props: {
+      data: jadwal,
+      tanggal : tanggal
+    }
+  }
+}
+
+export default LandingPage
