@@ -16,7 +16,9 @@ export default function HarianView({data, tanggal}) {
       if(faskes.result.find(x => x.tanggal_vaksin == tanggal)) faskesHariIni.push(faskes)
     });
   }
-  const diff =  Math.floor(( Date.parse(tanggal) - Date.now() ) / 86400000);
+  const clientTimeOffset = new Date().getTimezoneOffset()/60
+
+  const diff =  Math.floor(( Date.parse(tanggal) - Date.now() + clientTimeOffset) / 86400000);
   const kurangHari = (diff == 0) ? 'Hari ini' : diff + ' hari lagi'
   return (
     <Card style={{backgroundColor: "#f5f5f5"}}>
