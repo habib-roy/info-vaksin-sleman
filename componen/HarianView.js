@@ -8,6 +8,22 @@ import TodayIcon from '@material-ui/icons/Today';
 import FaskesView from './FaskesView';
 import Grid from '@material-ui/core/Grid';
 
+function hitungHari(tgl){
+  const sekarang = new Date()
+  const jam = sekarang.getHours() + ':' + sekarang.getMinutes() + ':' + sekarang.getSeconds() + '.' + sekarang.getMilliseconds()
+  const kapan = new Date(`${tgl} ${jam}`)
+  const selisihMiliSecond = kapan.getTime() - sekarang.getTime()
+
+  let teksHari = ''
+  if(selisihMiliSecond < 0){
+      teksHari = `${Math.floor(Math.abs(selisihMiliSecond) / 86400000)} hari yang lalu`
+  }else{
+      const selisihHari = Math.floor(selisihMiliSecond / 86400000)
+      teksHari = selisihHari == 0 ? 'Hari ini' : `${selisihHari} hari lagi`
+  }
+  return teksHari
+}
+
 export default function HarianView({data, tanggal}) {
   const jadwal = data ?? []
   let faskesHariIni = []
@@ -16,10 +32,9 @@ export default function HarianView({data, tanggal}) {
       if(faskes.result.find(x => x.tanggal_vaksin == tanggal)) faskesHariIni.push(faskes)
     });
   }
-  const clientTimeOffset = new Date().getTimezoneOffset()/60
+  
+  const kurangHari = hitungHari(tanggal)
 
-  const diff =  Math.floor(( Date.parse(tanggal) - Date.now() + clientTimeOffset) / 86400000);
-  const kurangHari = (diff == 0) ? 'Hari ini' : diff + ' hari lagi'
   return (
     <Card style={{backgroundColor: "#f5f5f5"}}>
       <CardHeader
