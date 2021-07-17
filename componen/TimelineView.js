@@ -12,13 +12,13 @@ import { Container } from '@material-ui/core';
 export default function TimelineView({data, tanggal}) {
   return (
     <Container maxWidth="lg">
-      <Timeline align="left">
+      <Timeline align="left" maxWidth="lg">
         
       {tanggal.length > 0 ? (
         tanggal.map((t, k) => (
           <TimelineItem key={k}>
             <TimelineOppositeContent style={{flex:0.01}}>
-              {new Intl.DateTimeFormat('id', { weekday: 'long', day: '2-digit', month: 'long' , year: 'numeric' }).format(new Date(t))}
+              {new Intl.DateTimeFormat('id', { day: '2-digit', month: '2-digit' }).format(new Date(t))}
             </TimelineOppositeContent>
             <TimelineSeparator>
               <TimelineDot />
